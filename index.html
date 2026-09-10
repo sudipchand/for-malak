@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#181027">
+  <meta name="description" content="A favourite song. A little courage. A question for Malak.">
+  <title>For Malak • A little question</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <audio id="background-music" src="music.mp3" preload="auto" autoplay loop></audio>
+  <div class="ambient" aria-hidden="true"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div class="shell">
+    <header><span class="dedication">JUST FOR YOU, MALAK</span><button class="sound-toggle" id="music-toggle" type="button" aria-label="Play background music">♫ Play music</button></header>
+    <main>
+      <section id="intro" class="view" aria-labelledby="intro-title">
+        <p class="eyebrow">A FAVOURITE SONG. A NEW POSSIBILITY.</p>
+        <h1 id="intro-title">Hey, Malak.<br><span class="serif">This one's</span><br><span class="pink">for you.</span></h1>
+        <p class="body-copy">Your taste in music is pretty great.<br>I'm hoping your taste in dates is, too.</p>
+        <button class="primary" id="begin">I have a little question <span aria-hidden="true">↗</span></button>
+        <p class="footnote">One song. A few butterflies. Here goes.</p>
+      </section>
+      <section id="invite" class="view" aria-labelledby="invite-title" hidden>
+        <p class="eyebrow">OKAY, HERE GOES.</p>
+        <h1 id="invite-title" tabindex="-1">Malak,<br><span class="serif">let's make</span><br><span class="pink">a date?</span></h1>
+        <p class="body-copy">Are you free this Sunday?<br>Let me take you out.</p>
+        <fieldset><legend>What sounds like your kind of plan?</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="date" value="coffee"><span class="choice-title">Coffee & a walk</span><span class="choice-detail">Good coffee. Better company.</span><span class="check" aria-hidden="true">✓</span></label>
+            <label class="choice"><input type="radio" name="date" value="drinks"><span class="choice-title">Drinks & music</span><span class="choice-detail">Your playlist, obviously.</span><span class="check" aria-hidden="true">✓</span></label>
+          </div>
+        </fieldset>
+        <div class="answer-actions"><button class="primary" id="yes">Yes, let's do it <span aria-hidden="true">♡</span></button><button class="secondary" id="later">Maybe another time</button></div>
+        <button class="text-button" id="no">No thanks</button>
+      </section>
+      <section id="result" class="view" aria-labelledby="result-title" hidden>
+        <p class="eyebrow" id="result-kicker"></p>
+        <h1 id="result-title" tabindex="-1"></h1>
+        <p class="body-copy" id="result-description"></p>
+        <div id="reply-area"><p class="reply-label">A LITTLE REPLY TO SEND BACK</p><textarea id="reply" aria-label="Your reply" rows="3"></textarea><button class="primary" id="copy">Copy my reply <span aria-hidden="true">↗</span></button><p class="footnote" id="copy-status" role="status">Copy it and send it in our chat.</p></div>
+        <button class="text-button" id="restart">Back to the question</button>
+      </section>
+    </main>
+    <footer>
+      <div class="song">
+        <span class="song-icon" aria-hidden="true">♫</span><span class="song-text"><span class="song-label">THE SOUNDTRACK</span><strong>We Found Love</strong><span>Rihanna feat. Calvin Harris</span><span id="music-status" role="status">Starting the music…</span></span>
+      </div>
+      <p class="closing">Made with a little courage <span aria-hidden="true">♡</span></p>
+    </footer>
+  </div>
+</body>
+</html>
