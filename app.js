@@ -1,5 +1,5 @@
 const $ = id => document.getElementById(id);
-const views = ['intro', 'invite', 'result'];
+const views = ['intro', 'game', 'invite', 'result'];
 const backgroundMusic = $('background-music');
 const musicToggle = $('music-toggle');
 let userPausedMusic = false;
@@ -53,7 +53,77 @@ function startMusicFromFirstGesture(event) {
 document.addEventListener('pointerdown', startMusicFromFirstGesture, { passive: true });
 document.addEventListener('keydown', startMusicFromFirstGesture);
 startMusic();
+const heartPositions = [[50, 44], [77, 27], [25, 68], [77, 68], [25, 27]];
+const heartMessages = [
+  '1 / 5 — Great taste in music. We already knew that.',
+  '2 / 5 — Okay, you’re good at this.',
+  '3 / 5 — The butterflies? Those are mine.',
+  '4 / 5 — One more. I’m building up the courage.',
+  '5 / 5 — All yours. There’s something I want to ask you.'
+];
+let caughtHearts = 0;
+let gameActive = false;
+let nextHeartTimer;
+function positionHeart() {
+  const target = $('heart-target');
+  const [x, y] = heartPositions[caughtHearts];
+  target.style.left = x + '%';
+  target.style.top = y + '%';
+  target.setAttribute('aria-label', 'Catch heart ' + (caughtHearts + 1) + ' of 5');
+  target.disabled = false;
+}
+function startGame() {
+  clearTimeout(nextHeartTimer);
+  caughtHearts = 0;
+  gameActive = true;
+  $('score-number').textContent = '00';
+  $('heart-progress').value = 0;
+  $('heart-progress').textContent = '0 of 5';
+  $('heart-target').hidden = false;
+  $('game-reveal').hidden = true;
+  $('arena-hint').hidden = false;
+  $('skip-game').hidden = false;
+  $('catch-message').textContent = 'First heart: yours for the taking.';
+  show('game');
+  positionHeart();
+}
+function catchHeart() {
+  const target = $('heart-target');
+  if (!gameActive || target.disabled || caughtHearts >= 5) return;
+  target.disabled = true;
+  caughtHearts += 1;
+  $('score-number').textContent = String(caughtHearts).padStart(2, '0');
+  $('heart-progress').value = caughtHearts;
+  $('heart-progress').textContent = caughtHearts + ' of 5';
+  $('catch-message').textContent = heartMessages[caughtHearts - 1];
+  if (caughtHearts === 5) {
+    gameActive = false;
+    target.hidden = true;
+    $('arena-hint').hidden = true;
+    $('skip-game').hidden = true;
+    $('game-reveal').hidden = false;
+    $('open-surprise').focus({ preventScroll: true });
+    celebrate();
+  } else {
+    nextHeartTimer = setTimeout(() => {
+      if (!gameActive) return;
+      positionHeart();
+      target.focus({ preventScroll: true });
+    }, 240);
+  }
+}
+$('heart-target').addEventListener('click', catchHeart);
+['skip-intro', 'skip-game', 'open-surprise'].forEach(id => {
+  $(id).addEventListener('click', () => {
+    startMusic();
+    show('invite');
+  });
+});
 function show(id) {
+  if (id !== 'game') {
+    gameActive = false;
+    clearTimeout(nextHeartTimer);
+  }
   views.forEach(view => { $(view).hidden = view !== id; });
   window.scrollTo({ top: 0, behavior: 'instant' });
   const heading = $(id).querySelector('h1');
@@ -62,7 +132,7 @@ function show(id) {
 }
 $('begin').addEventListener('click', () => {
   startMusic();
-  show('invite');
+  startGame();
 });
 $('restart').addEventListener('click', () => show('invite'));
 function respond(answer) {
