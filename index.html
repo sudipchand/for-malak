@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#181027">
+  <meta name="description" content="Five hearts, a favourite song, and a little surprise for Malak.">
+  <title>For Malak • A little question</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <audio id="background-music" src="music.mp3" preload="auto" autoplay loop></audio>
+  <div class="ambient" aria-hidden="true"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div class="shell">
+    <header><span class="dedication">JUST FOR YOU, MALAK</span><button class="sound-toggle" id="music-toggle" type="button" aria-label="Play background music">♫ Play music</button></header>
+    <main>
+      <section id="intro" class="view" aria-labelledby="intro-title">
+        <p class="eyebrow">A LITTLE GAME, JUST FOR YOU.</p>
+        <h1 id="intro-title">Hey, Malak.<br><span class="serif">Catch a little</span><br><span class="pink">feeling.</span></h1>
+        <p class="body-copy">Five hearts are hiding a little surprise.<br>Catch them, and it's yours.</p>
+        <button class="primary" id="begin">Let's play <span aria-hidden="true">♡</span></button>
+        <p class="footnote">Your favourite song. Five hearts. One question.</p>
+        <button class="text-button" id="skip-intro">Take me straight to the surprise</button>
+      </section>
+      <section id="game" class="view" aria-labelledby="game-title" hidden>
+        <div class="game-topline"><p class="eyebrow">YOUR MISSION, MALAK</p><span class="game-score" aria-hidden="true"><span id="score-number">00</span> / 05 <span class="pink">♥</span></span></div>
+        <h1 id="game-title" tabindex="-1">Catch the <span class="serif pink">hearts.</span></h1>
+        <p class="game-instruction" id="game-instruction">Tap each glowing heart to find your surprise. No rush.</p>
+        <progress class="heart-progress" id="heart-progress" max="5" value="0" aria-label="Hearts caught">0 of 5</progress>
+        <div class="heart-arena" id="heart-arena" aria-describedby="game-instruction">
+          <div class="arena-caption" aria-hidden="true">A LITTLE CHEMISTRY</div>
+          <button class="heart-target" id="heart-target" type="button" aria-label="Catch heart 1 of 5"><span aria-hidden="true">♥</span></button>
+          <div class="arena-hint" id="arena-hint" aria-hidden="true">There's a question waiting for you…</div>
+          <div class="game-reveal" id="game-reveal" hidden>
+            <span class="unlock-heart" aria-hidden="true">♡</span>
+            <p class="eyebrow">ALL FIVE. NICELY DONE.</p>
+            <h2>You found it.<br><span class="serif pink">Now for the brave part.</span></h2>
+            <button class="primary" id="open-surprise">Open your surprise <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+        <p class="catch-message" id="catch-message" role="status" aria-live="polite">First heart: yours for the taking.</p>
+        <button class="text-button" id="skip-game">Skip to the surprise</button>
+      </section>
+      <section id="invite" class="view" aria-labelledby="invite-title" hidden>
+        <p class="eyebrow">OKAY, HERE GOES.</p>
+        <h1 id="invite-title" tabindex="-1">Malak,<br><span class="serif">let's make</span><br><span class="pink">a date?</span></h1>
+        <p class="body-copy">Are you free this Sunday?<br>Let me take you out.</p>
+        <fieldset><legend>What sounds like your kind of plan?</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="date" value="coffee"><span class="choice-title">Coffee & a walk</span><span class="choice-detail">Good coffee. Better company.</span><span class="check" aria-hidden="true">✓</span></label>
+            <label class="choice"><input type="radio" name="date" value="drinks"><span class="choice-title">Drinks & music</span><span class="choice-detail">Your playlist, obviously.</span><span class="check" aria-hidden="true">✓</span></label>
+          </div>
+        </fieldset>
+        <div class="answer-actions"><button class="primary" id="yes">Yes, let's do it <span aria-hidden="true">♡</span></button><button class="secondary" id="later">Maybe another time</button></div>
+        <button class="text-button" id="no">No thanks</button>
+      </section>
+      <section id="result" class="view" aria-labelledby="result-title" hidden>
+        <p class="eyebrow" id="result-kicker"></p>
+        <h1 id="result-title" tabindex="-1"></h1>
+        <p class="body-copy" id="result-description"></p>
+        <div id="reply-area"><p class="reply-label">A LITTLE REPLY TO SEND BACK</p><textarea id="reply" aria-label="Your reply" rows="3"></textarea><button class="primary" id="copy">Copy my reply <span aria-hidden="true">↗</span></button><p class="footnote" id="copy-status" role="status">Copy it and send it in our chat.</p></div>
+        <button class="text-button" id="restart">Back to the question</button>
+      </section>
+    </main>
+    <footer>
+      <div class="song">
+        <span class="song-icon" aria-hidden="true">♫</span><span class="song-text"><span class="song-label">THE SOUNDTRACK</span><strong>We Found Love</strong><span>Rihanna feat. Calvin Harris</span><span id="music-status" role="status">Starting the music…</span></span>
+      </div>
+      <p class="closing">Made with a little courage <span aria-hidden="true">♡</span></p>
+    </footer>
+  </div>
+</body>
+</html>
